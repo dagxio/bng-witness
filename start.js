@@ -417,6 +417,30 @@ function initRPC() {
 }
 
 
+// --bymax   时间oracle 选用
+function postTimestamp(address) {
+    var composer = require('byteballcore/composer.js');
+    var network = require('byteballcore/network.js');
+    var callbacks = composer.getSavingCallbacks({
+        ifNotEnoughFunds: function(err) {
+            console.error(err);
+        },
+        ifError: function(err) {
+            console.error(err);
+        },
+        ifOk: function(objJoint) {
+            network.broadcastJoint(objJoint);
+        }
+    });
+
+    var datafeed = {
+        time: new Date().toString(),
+        timestamp: Date.now()
+    };
+    composer.composeDataFeedJoint(address, datafeed, headlessWallet.signer, callbacks);
+}
+
+
 db.query("CREATE UNIQUE INDEX IF NOT EXISTS hcobyAddressSpentMci ON headers_commission_outputs(address, is_spent, main_chain_index)");
 db.query("CREATE UNIQUE INDEX IF NOT EXISTS byWitnessAddressSpentMci ON witnessing_outputs(address, is_spent, main_chain_index)");
 
@@ -430,6 +454,7 @@ eventBus.on('headless_wallet_ready', function(){
 		my_address = address;
 		//checkAndWitness();
 		eventBus.on('new_joint', checkAndWitness); // new_joint event is not sent while we are catching up
+		// setInterval(postTimestamp, conf.TIMESTAMPING_INTERVAL, address);  // start the Timestamp Oracle service  启用时间ORACLE 选用–bymax 
 	});
 	initRPC();
 
