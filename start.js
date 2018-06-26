@@ -1,13 +1,13 @@
 /*jslint node: true */
 "use strict";
-var conf = require('byteballcore/conf.js');
-var db = require('byteballcore/db.js');
-var storage = require('byteballcore/storage.js');
-var eventBus = require('byteballcore/event_bus.js');
-var mail = require('byteballcore/mail.js');
-var headlessWallet = require('headless-byteball');
-var desktopApp = require('byteballcore/desktop_app.js');
-var objectHash = require('byteballcore/object_hash.js');
+var conf = require('bng-core/conf.js');
+var db = require('bng-core/db.js');
+var storage = require('bng-core/storage.js');
+var eventBus = require('bng-core/event_bus.js');
+var mail = require('bng-core/mail.js');
+var headlessWallet = require('bng-headless');
+var desktopApp = require('bng-core/desktop_app.js');
+var objectHash = require('bng-core/object_hash.js');
 
 var WITNESSING_COST = 600; // size of typical witnessing unit
 var my_address;
@@ -15,10 +15,10 @@ var bWitnessingUnderWay = false;
 var forcedWitnessingTimer;
 var count_witnessings_available = 0;
 
-var validationUtils = require("byteballcore/validation_utils.js");
-var walletDefinedByKeys = require('byteballcore/wallet_defined_by_keys.js');
-var Wallet = require('byteballcore/wallet.js');
-var balances = require('byteballcore/balances.js');
+var validationUtils = require("bng-core/validation_utils.js");
+var walletDefinedByKeys = require('bng-core/wallet_defined_by_keys.js');
+var Wallet = require('bng-core/wallet.js');
+var balances = require('bng-core/balances.js');
 var wallet_id = null;
 
 if (!conf.bSingleAddress && require.main === module)
@@ -51,8 +51,8 @@ function witness(onDone){
 		notifyAdminAboutFailedWitnessing(err);
 		setTimeout(onDone, 60000); // pause after error
 	}
-	var network = require('byteballcore/network.js');
-	var composer = require('byteballcore/composer.js');
+	var network = require('bng-core/network.js');
+	var composer = require('bng-core/composer.js');
 	if (!network.isConnected()){
 		console.log('not connected, skipping');
 		return onDone();
@@ -419,8 +419,8 @@ function initRPC() {
 
 // --bymax   时间oracle 选用
 function postTimestamp(address) {
-    var composer = require('byteballcore/composer.js');
-    var network = require('byteballcore/network.js');
+    var composer = require('bng-core/composer.js');
+    var network = require('bng-core/network.js');
     var callbacks = composer.getSavingCallbacks({
         ifNotEnoughFunds: function(err) {
             console.error(err);

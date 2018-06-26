@@ -1,6 +1,6 @@
 {
-  "name": "byteball-witness",
-  "description": "Byteball witness",
+  "name": "bng-witness",
+  "description": "bng witness",
   "author": "Byteball",
   "version": "0.1.7",
   "main": "start.js",
@@ -21,7 +21,7 @@
     "secp256k1": "secp256k1/js"
   },
   "dependencies": {
-    "byteballcore": "git+https://github.com/bsurevip/bng-core.git",
-    "headless-byteball": "git+https://github.com/bsurevip/bng-headless.git"
+    "bng-core": "git+https://github.com/bsurevip/bng-core.git",
+    "bng-headless": "git+https://github.com/bsurevip/bng-headless.git"
   }
 }
