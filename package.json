@@ -21,7 +21,7 @@
     "secp256k1": "secp256k1/js"
   },
   "dependencies": {
-    "bng-core": "git+https://github.com/bsurevip/bng-core.git",
-    "bng-headless": "git+https://github.com/bsurevip/bng-headless.git"
+    "bng-core": "git+https://github.com/dagxio/bng-core.git",
+    "bng-headless": "git+https://github.com/dagxio/bng-headless.git"
   }
 }
